@@ -35,13 +35,16 @@ export default function CareerResultsScreen({ navigation, route }) {
   const topMatch = route?.params?.topMatch || matches[0];
   const { dark } = useTheme();
 
-  const scrollBg = dark ? '#0f172a' : '#F8FAFA';
-  const cardBg = dark ? 'rgba(30,41,59,0.9)' : COLORS.white;
-  const cardText = dark ? '#e2e8f0' : COLORS.black;
-  const cardTextMuted = dark ? '#94a3b8' : '#6B7280';
-  const sectionTitleColor = dark ? '#94a3b8' : '#6B7280';
-  const trackBg = dark ? 'rgba(255,255,255,0.1)' : '#EEF2F1';
-  const secondaryBg = dark ? 'rgba(255,255,255,0.1)' : '#F0F3F2';
+  // Matches the Figma card theme: cards stay a light/white surface with
+  // black text regardless of dark/light mode — only the screen background
+  // and card border opacity respond to the toggle.
+  const scrollBg = dark ? '#042f2e' : '#F8FAFA';
+  const cardBg = dark ? '#ffffff' : COLORS.white;
+  const cardText = COLORS.black;
+  const cardTextMuted = dark ? 'rgba(0,0,0,0.6)' : '#6B7280';
+  const sectionTitleColor = dark ? 'rgba(255,255,255,0.7)' : '#6B7280';
+  const trackBg = dark ? 'rgba(13,84,81,0.12)' : '#EEF2F1';
+  const secondaryBg = dark ? 'rgba(13,84,81,0.12)' : '#F0F3F2';
 
   const safeNavigate = (screenName, params) => {
     if (!navigation) {

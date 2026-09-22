@@ -26,7 +26,7 @@ export default function Roadmap({ navigation }) {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#0A5C53', '#05342F']}
+        colors={['#116b67', '#0d5451', '#042f2e']}
         style={styles.gradient}
       >
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
@@ -108,20 +108,20 @@ export default function Roadmap({ navigation }) {
         
         <View style={styles.bottomNav}>
           <TouchableOpacity style={styles.navItem} activeOpacity={0.7} onPress={() => safeNavigate('Home')}>
-            <Home size={22} color="#88B3AD" />
+            <Home size={22} color="rgba(0,0,0,0.35)" />
             <Text style={styles.navText}>Home</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.navItem} activeOpacity={0.7} onPress={() => safeNavigate('Explore')}>
-            <Compass size={22} color="#88B3AD" />
+            <Compass size={22} color="rgba(0,0,0,0.35)" />
             <Text style={styles.navText}>Explore</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.navItem} activeOpacity={0.7} onPress={() => safeNavigate('Roadmap')}>
-            <Map size={22} color="#FFFFFF" />
+            <Map size={22} color="#000000" />
             <Text style={[styles.navText, styles.activeNavText]}>Roadmap</Text>
             <View style={styles.activeDot} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.navItem} activeOpacity={0.7} onPress={() => safeNavigate('Profile')}>
-            <User size={22} color="#88B3AD" />
+            <User size={22} color="rgba(0,0,0,0.35)" />
             <Text style={styles.navText}>Profile</Text>
           </TouchableOpacity>
         </View>
@@ -307,9 +307,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(5, 52, 47, 0.95)',
+    backgroundColor: 'rgba(255,255,255,0.92)',
     borderTopWidth: 1,
-    borderTopColor: 'rgba(255, 255, 255, 0.05)',
+    borderTopColor: 'rgba(0,0,0,0.08)',
     paddingVertical: 12,
     paddingHorizontal: 24,
     flexDirection: 'row',
@@ -321,18 +321,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   navText: {
-    color: '#88B3AD',
+    color: 'rgba(0,0,0,0.35)',
     fontSize: 10,
     marginTop: 4,
   },
   activeNavText: {
-    color: '#FFFFFF',
+    color: '#000000',
     fontWeight: 'bold',
   },
   activeDot: {
     width: 4,
     height: 4,
-    backgroundColor: '#2DD4BF',
+    backgroundColor: '#0d5451',
     borderRadius: 2,
     marginTop: 4,
   },

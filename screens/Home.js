@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from '../ThemeContext';
 import {
   FileText,
   DollarSign,
@@ -131,15 +130,15 @@ export default function HomeScreen({ navigation, route }) {
   const goToResults = () => safeNavigate('CareerResults', { matches });
 
   const insets = useSafeAreaInsets();
-  const { dark } = useTheme();
 
-  // "White card" surfaces and their text need a dark variant — the gradient
-  // background and tab bar are already dark teal, so those stay as-is.
-  const cardBg = dark ? 'rgba(30,41,59,0.94)' : 'rgba(255,255,255,0.96)';
-  const cardBgAlt = dark ? 'rgba(30,41,59,0.9)' : 'rgba(255,255,255,0.94)';
-  const cardText = dark ? '#e2e8f0' : COLORS.black;
-  const cardTextMuted = dark ? '#94a3b8' : '#6B7280';
-  const retakeBg = dark ? 'rgba(255,255,255,0.1)' : '#F0F3F2';
+  // Matches the Figma card theme: cards stay a light/white surface with
+  // black text regardless of dark/light mode — the hero gradient behind
+  // them is what carries the theme's dark/light distinction.
+  const cardBg = 'rgba(255,255,255,0.96)';
+  const cardBgAlt = 'rgba(255,255,255,0.94)';
+  const cardText = COLORS.black;
+  const cardTextMuted = '#6B7280';
+  const retakeBg = '#F0F3F2';
 
   return (
     <View style={[styles.safeArea, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
@@ -301,7 +300,7 @@ export default function HomeScreen({ navigation, route }) {
             >
               <Icon
                 size={20}
-                color={isActive ? COLORS.white : COLORS.textMuted}
+                color={isActive ? '#000000' : 'rgba(0,0,0,0.35)'}
               />
               <Text style={[styles.tabLabel, isActive && styles.tabLabelActive]}>
                 {tab.label}
@@ -582,11 +581,11 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     flexDirection: 'row',
-    backgroundColor: COLORS.tealDark,
+    backgroundColor: 'rgba(255,255,255,0.92)',
     paddingTop: 10,
     paddingBottom: 8,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.08)',
+    borderTopColor: 'rgba(0,0,0,0.08)',
   },
   tabItem: {
     flex: 1,
@@ -595,19 +594,19 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   tabLabel: {
-    color: COLORS.textMuted,
+    color: 'rgba(0,0,0,0.35)',
     fontSize: 11,
     fontWeight: '600',
   },
   tabLabelActive: {
-    color: COLORS.white,
+    color: '#000000',
     fontWeight: '700',
   },
   tabDot: {
     width: 4,
     height: 4,
     borderRadius: 2,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.tealMid,
     marginTop: 2,
   },
 });

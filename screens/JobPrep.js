@@ -10,7 +10,6 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ChevronLeft } from 'lucide-react-native';
-import { useTheme } from '../ThemeContext';
 
 const COLORS = {
   tealDark: '#042F2E',
@@ -100,11 +99,12 @@ const TIPS = {
 export default function JobPrepHubScreen({ navigation }) {
   const [activeTab, setActiveTab] = useState('cv');
   const insets = useSafeAreaInsets();
-  const { dark } = useTheme();
 
-  const cardBg = dark ? 'rgba(30,41,59,0.92)' : 'rgba(255,255,255,0.94)';
-  const cardTitleColor = dark ? '#e2e8f0' : COLORS.black;
-  const cardBodyColor = dark ? '#94a3b8' : '#4B5563';
+  // Cards stay a light/white surface with black text regardless of
+  // dark/light mode, matching the Figma card theme.
+  const cardBg = 'rgba(255,255,255,0.94)';
+  const cardTitleColor = COLORS.black;
+  const cardBodyColor = '#4B5563';
 
   const goBack = () => {
     if (navigation?.canGoBack?.()) {

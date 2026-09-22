@@ -385,8 +385,8 @@ export default function ExploreScreen({ navigation, route }) {
                 activeOpacity={0.7}
                 onPress={() => safeNavigate(t.key)}
               >
-                <Icon size={20} color={isActive ? COLORS.white : COLORS.textDim} />
-                <Text style={[styles.navLabel, isActive && { color: COLORS.white }]}>{t.label}</Text>
+                <Icon size={20} color={isActive ? "#000000" : "rgba(0,0,0,0.35)"} />
+                <Text style={[styles.navLabel, isActive && { color: "#000000" }]}>{t.label}</Text>
                 {isActive && <View style={styles.activeDot} />}
               </TouchableOpacity>
             );
@@ -552,10 +552,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 12,
     borderTopWidth: 1,
-    borderTopColor: "rgba(255,255,255,0.08)",
-    backgroundColor: "rgba(5, 25, 23, 0.55)",
+    borderTopColor: "rgba(0,0,0,0.08)",
+    backgroundColor: "rgba(255,255,255,0.92)",
   },
   navItem: { alignItems: "center", gap: 4 },
-  navLabel: { fontSize: 10.5, fontWeight: "700", color: COLORS.textDim },
-  activeDot: { width: 4, height: 4, borderRadius: 999, backgroundColor: COLORS.mint, marginTop: 2 },
+  navLabel: { fontSize: 10.5, fontWeight: "700", color: "rgba(0,0,0,0.35)" },
+  activeDot: { width: 4, height: 4, borderRadius: 999, backgroundColor: "#0d5451", marginTop: 2 },
 });
