@@ -123,8 +123,6 @@ const COLORS = {
   trackBg: "rgba(255,255,255,0.12)",
 };
 
-// Same TABS shape as Home.js so the bottom nav on this screen matches the
-// one on Home and stays functional when a teammate adds more screens.
 const TABS = [
   { key: "Home", label: "Home", icon: HomeIcon },
   { key: "Explore", label: "Explore", icon: Compass },
@@ -132,8 +130,6 @@ const TABS = [
   { key: "Profile", label: "Profile", icon: User },
 ];
 
-// Opens a certification/course link in the device browser. Falls back to a
-// friendly alert instead of failing silently if the URL can't be opened.
 async function openCertLink(url) {
   try {
     const supported = await Linking.canOpenURL(url);
@@ -321,20 +317,12 @@ function JobsTab() {
   );
 }
 
-// Reached three ways: the "Explore" bottom-nav tab (defaults to Skills),
-// the "Salary Guide" quick action (jumps straight to Jobs), and the
-// "Certifications" quick action (jumps straight to Certs) — Home.js passes
-// the starting tab in as route.params.initialTab.
 export default function ExploreScreen({ navigation, route }) {
   const [tab, setTab] = useState(
     TAB_KEYS.includes(route?.params?.initialTab) ? route.params.initialTab : "Skills"
   );
   const insets = useSafeAreaInsets();
 
-  // If the user is already on Explore and taps another quick action that
-  // targets a different tab (e.g. Certifications after Salary Guide), React
-  // Navigation updates this screen's params in place rather than pushing a
-  // new instance, so this effect is what actually switches the visible tab.
   useEffect(() => {
     if (TAB_KEYS.includes(route?.params?.initialTab)) {
       setTab(route.params.initialTab);
