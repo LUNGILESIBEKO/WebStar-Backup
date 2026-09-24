@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  Linking,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
@@ -19,6 +20,7 @@ import {
   ChevronDown,
   ChevronUp,
   ArrowLeft,
+  ExternalLink,
 } from "lucide-react-native";
 import { useFonts, Manrope_500Medium, Manrope_700Bold, Manrope_800ExtraBold } from "@expo-google-fonts/manrope";
 
@@ -33,6 +35,8 @@ const SKILLS = [
   { name: "SQL & Data Analysis", badge: "Steady", category: "Data / Analytics", pct: 75 },
 ];
 
+// Each cert now carries a real `url` to the official provider page, used by
+// the "Get Certified" button below to open the actual sign-up/exam page.
 const CERTS = [
   {
     name: "AWS Certified Solutions Architect – Associate",
@@ -42,6 +46,7 @@ const CERTS = [
     cost: "~R2 500",
     prep: "3–6 months",
     category: "Cloud",
+    url: "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
   },
   {
     name: "Google Associate Cloud Engineer",
@@ -51,6 +56,7 @@ const CERTS = [
     cost: "~R2 300",
     prep: "2–4 months",
     category: "Cloud",
+    url: "https://cloud.google.com/certification/cloud-engineer",
   },
   {
     name: "Microsoft Azure Fundamentals (AZ-900)",
@@ -60,6 +66,7 @@ const CERTS = [
     cost: "~R1 200",
     prep: "3–6 weeks",
     category: "Cloud",
+    url: "https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/",
   },
   {
     name: "Meta Front-End Developer",
@@ -69,6 +76,7 @@ const CERTS = [
     cost: "~R950 / mo",
     prep: "5–7 months",
     category: "Frontend",
+    url: "https://www.coursera.org/professional-certificates/meta-front-end-developer",
   },
   {
     name: "Certified Kubernetes Administrator",
@@ -78,6 +86,7 @@ const CERTS = [
     cost: "~R6 800",
     prep: "2–3 months",
     category: "DevOps",
+    url: "https://www.cncf.io/training/certification/cka/",
   },
   {
     name: "CompTIA Security+",
@@ -87,6 +96,7 @@ const CERTS = [
     cost: "~R7 200",
     prep: "2–3 months",
     category: "Backend",
+    url: "https://www.comptia.org/certifications/security",
   },
 ];
 
@@ -121,6 +131,21 @@ const TABS = [
   { key: "Roadmap", label: "Roadmap", icon: Map },
   { key: "Profile", label: "Profile", icon: User },
 ];
+
+// Opens a certification/course link in the device browser. Falls back to a
+// friendly alert instead of failing silently if the URL can't be opened.
+async function openCertLink(url) {
+  try {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert("Can't open this link", url);
+    }
+  } catch (err) {
+    Alert.alert("Something went wrong", "Please try again in a moment.");
+  }
+}
 
 function Pill({ children, bg, color }) {
   return (
@@ -243,13 +268,24 @@ function CertsTab() {
                 </View>
               </>
             )}
-            <TouchableOpacity
-              style={styles.showToggle}
-              onPress={() => setExpanded(isOpen ? null : c.name)}
-            >
-              <Text style={styles.showToggleText}>{isOpen ? "Show less" : "Show details"}</Text>
-              {isOpen ? <ChevronUp size={14} color={COLORS.mint} /> : <ChevronDown size={14} color={COLORS.mint} />}
-            </TouchableOpacity>
+
+            <View style={styles.cardFooter}>
+              <TouchableOpacity
+                style={styles.showToggle}
+                onPress={() => setExpanded(isOpen ? null : c.name)}
+              >
+                <Text style={styles.showToggleText}>{isOpen ? "Show less" : "Show details"}</Text>
+                {isOpen ? <ChevronUp size={14} color={COLORS.mint} /> : <ChevronDown size={14} color={COLORS.mint} />}
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.enrollButton}
+                onPress={() => openCertLink(c.url)}
+              >
+                <Text style={styles.enrollButtonText}>Get Certified</Text>
+                <ExternalLink size={13} color="#12463d" />
+              </TouchableOpacity>
+            </View>
           </View>
         );
       })}
@@ -538,8 +574,25 @@ const styles = StyleSheet.create({
   detailLabel: { color: "rgba(255,255,255,0.4)", fontSize: 10.5, fontWeight: "700", letterSpacing: 0.5, marginBottom: 3 },
   detailValue: { color: COLORS.white, fontSize: 13.5, fontWeight: "700" },
 
-  showToggle: { flexDirection: "row", alignItems: "center", gap: 4, marginTop: 12 },
+  cardFooter: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 12,
+  },
+  showToggle: { flexDirection: "row", alignItems: "center", gap: 4 },
   showToggleText: { color: COLORS.mint, fontSize: 12.5, fontWeight: "700" },
+
+  enrollButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    backgroundColor: COLORS.mint,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 999,
+  },
+  enrollButtonText: { color: "#12463d", fontSize: 12.5, fontWeight: "800" },
 
   yoy: { color: COLORS.green, fontSize: 13, fontWeight: "800" },
   rangeRow: { flexDirection: "row", justifyContent: "space-between", marginTop: 14 },
