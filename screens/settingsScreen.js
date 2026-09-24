@@ -196,10 +196,8 @@ export default function SettingsScreen({ navigate, onLogout }) {
   // Institution state
   const [institution, setInstitution] = useState("University of Pretoria (UP)");
 
-  // Cards stay a light/white surface with black text regardless of
-  // dark/light mode, matching the Figma card theme.
-  const cardText = "#000";
-  const rowText = "#000";
+  const cardText = dark ? "#e2e8f0" : "#000";
+  const rowText = dark ? "#cbd5e1" : "#1e293b";
 
   const handleSave = () => {
     setSaved(true);

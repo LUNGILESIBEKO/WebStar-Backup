@@ -1,13 +1,12 @@
 import "react-native-gesture-handler";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { ThemeProvider, useTheme } from "./ThemeContext";
-import { palette } from "./theme";
 
 
 import HomeScreen from "./screens/Home";
@@ -99,31 +98,13 @@ function ExploreScreenAdapter({ navigation, route }) {
 function RootStack() {
   const { dark } = useTheme();
 
-  // Matches the Figma design's persistent background: a deep teal
-  // radial/linear gradient in dark mode, a near-white wash with
-  // faint teal accent orbs in light mode.
   return (
     <LinearGradient
-      colors={
-        dark
-          ? [palette.tealDeep, palette.teal, palette.tealMid, palette.tealDark]
-          : [palette.lightBg, palette.lightBg]
-      }
-      start={{ x: 0.2, y: 0 }}
-      end={{ x: 0.8, y: 1 }}
+      colors={dark ? ["#0a0f1a", "#152238"] : ["#0a3d3a", "#1a9e99"]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
       style={styles.background}
     >
-      {dark ? (
-        <View pointerEvents="none" style={StyleSheet.absoluteFill}>
-          <View style={[styles.orb, { top: -60, right: -40, width: 300, height: 300, backgroundColor: "rgba(77,212,206,0.18)" }]} />
-          <View style={[styles.orb, { bottom: 80, left: -60, width: 260, height: 260, backgroundColor: "rgba(26,158,153,0.14)" }]} />
-        </View>
-      ) : (
-        <View pointerEvents="none" style={StyleSheet.absoluteFill}>
-          <View style={[styles.orb, { top: -80, right: -60, width: 340, height: 340, backgroundColor: "rgba(13,84,81,0.07)" }]} />
-          <View style={[styles.orb, { bottom: 60, left: -80, width: 300, height: 300, backgroundColor: "rgba(13,84,81,0.05)" }]} />
-        </View>
-      )}
       <Stack.Navigator
         initialRouteName="Login"
         screenOptions={{
@@ -160,5 +141,4 @@ export default function App() {
 
 const styles = StyleSheet.create({
   background: { flex: 1 },
-  orb: { position: "absolute", borderRadius: 999 },
 });
